@@ -27,7 +27,7 @@ function Index() {
   const [w, setW] = useState<Workload>({ insert: 30, lookup: 50, range: 15, del: 5, n: 1_000_000, ordered: false, memoryTight: false });
   const cands = useMemo(() => synthesize(w), [w]);
   const [sel, setSel] = useState<string | null>(null);
-  const chosen = cands.find((c) => c.id === sel) ?? cands[0];
+  const chosen = (cands.find((c) => c.id === sel) ?? cands[0])!;
   const max = Math.max(...cands.map((c) => c.cost));
   const code = generateCpp(chosen, w);
   const set = (p: Partial<Workload>) => setW((s) => ({ ...s, ...p }));
